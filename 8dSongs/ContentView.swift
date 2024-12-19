@@ -191,6 +191,7 @@ class AudioManager: ObservableObject {
         // Stop any existing playback
         stop()
         
+        
         do {
             // Create audio session
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
