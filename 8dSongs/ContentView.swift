@@ -1,4 +1,3 @@
-
 import SwiftUI
 import AVFoundation
 import MediaPlayer
@@ -191,7 +190,6 @@ class AudioManager: ObservableObject {
         // Stop any existing playback
         stop()
         
-        
         do {
             // Create audio session
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
@@ -254,12 +252,12 @@ class AudioManager: ObservableObject {
             
             // Smooth rotation speed with balance
             self.currentAngle += Float(0.002 * self.rotationSpeed)
-            if self.currentAngle > .pi * 4 {
-                self.currentAngle -= .pi * 7
+            if self.currentAngle > .pi * 2 {
+                self.currentAngle -= .pi * 2
             }
             
             // Add elevation for 3D rotation
-            self.currentElevation = sin(self.currentAngle * 0.4) * 0.5  // Adjust the multiplier for smoother up/down motion
+            self.currentElevation = sin(self.currentAngle * 0.25) * 0.5  // Adjust the multiplier for smoother up/down motion
             
             // Calculate spherical position (3D space)
             let radius = self.currentDistance
@@ -269,7 +267,7 @@ class AudioManager: ObservableObject {
 
             // Update pan and volume based on position
             let pan = Float(x / radius) // Pan left/right
-            let distanceFactor = 05.0 - (abs(z) * 0.2) // Use Z-axis for distance (forward/back)
+            let distanceFactor = 1.0 - (abs(z) * 0.2) // Use Z-axis for distance (forward/back)
             
             self.panNode.pan = pan
             self.playerNode?.volume = distanceFactor
@@ -494,3 +492,4 @@ struct PlayerControlsView: View {
         return String(format: "%d:%02d", minutes, seconds)
     }
 }
+
